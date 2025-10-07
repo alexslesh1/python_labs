@@ -1,6 +1,6 @@
 def min_max(nums: list[float | int]):
     if not nums:
-        return ("Value Error")
+        raise ValueError
     else:
         min_val = min(nums)
         max_val = max(nums)
@@ -25,7 +25,7 @@ def flatten(mat: list[list | tuple]):
         if isinstance(row, (list, tuple)):
             flattened_list.extend(row)
         else:
-            return ("TypeError")
+            raise TypeError
     return (flattened_list)
 print(flatten([[1, 2], [3, 4]]))
 print(flatten([[1, 2], (3, 4, 5)]))
