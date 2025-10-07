@@ -10,7 +10,7 @@
 ```
 def min_max(nums: list[float | int]):
     if not nums:
-        return ("Value Error")
+        raise Value Error 
     else:
         min_val = min(nums)
         max_val = max(nums)
@@ -20,7 +20,6 @@ print(min_max([42]))
 print(min_max([-5, -2, -9]))
 print(min_max([1.5,2,2.0,-3.1]))
 print(min_max([]))
-print(result)
 ```
 **Пример использования:**
 
@@ -53,7 +52,7 @@ def flatten(mat: list[list | tuple]):
         if isinstance(row, (list, tuple)):
             flattened_list.extend(row)
         else:
-            return ("TypeError")
+            raise Value Error 
     return (flattened_list)
 print(flatten([[1, 2], [3, 4]]))
 print(flatten([[1, 2], (3, 4, 5)]))
@@ -80,7 +79,7 @@ def row_sums(mat: list[list[float | int]]):
 
     for row in mat:
         if len(row) != cols:
-            return ("ValueError")        
+            raise Value Error         
     sums = []
     for row in mat:          
         total = sum(row)      
@@ -108,7 +107,7 @@ def col_sums(mat: list[list[float | int]]):
     cols = len(mat[0])
     for row in mat:
         if len(row) != cols:
-            return "ValueError"
+            raise Value Error 
     
     sums = []
     for j in range(cols):
@@ -141,7 +140,7 @@ def col_sums(mat: list[list[float | int]]):
     cols = len(mat[0])
     for row in mat:
         if len(row) != cols:
-            return "ValueError"    
+            raise Value Error     
     sums = []
     for j in range(cols):
         column_sum = 0
@@ -212,3 +211,5 @@ print(format_record(("  сидорова  анна   сергеевна ", "ABB-
 
 ## Вывод:
 **Все функции работают с обработкой данных: находят мин/макс, удаляют дубликаты, суммируют строки и столбцы матриц, транспонируют матрицы и форматируют текст. Код рабочий, но лучше возвращать нормальные ошибки через raise вместо строк "ValueError". В целом - полезные утилиты для работы со структурированными данными.**
+
+
