@@ -1,5 +1,6 @@
 import re
 from typing import Dict, List, Tuple
+from collections import Counter
 
 def normalize(text: str, *, casefold: bool = True, yo2e: bool = True) -> str:
     result = text
@@ -21,13 +22,25 @@ def tokenize(text: str) -> List[str]:
     return tokens
 
 def count_freq(tokens: List[str]) -> Dict[str, int]:
-    frequency_dict = {}
-    for token in tokens:
-        frequency_dict[token] = frequency_dict.get(token, 0) + 1
-    return frequency_dict
+    return Counter(tokens)
 
 def top_n(freq: Dict[str, int], n: int = 5) -> List[Tuple[str, int]]:
     items = list(freq.items())
     sorted_items = sorted(items, key=lambda x: (-x[1], x[0]))
     return sorted_items[:n]
 
+if __name__ == "__main__":
+    test_text = "Привет, мир! Привет!!! Тест-тест проверка."
+    print("Исходный текст:", test_text)
+    
+    norm_text = normalize(test_text)
+    print("Нормализованный:", norm_text)
+    
+    tokens = tokenize(norm_text)
+    print("Токены:", tokens)
+    
+    freq = count_freq(tokens)
+    print("Частоты:", freq)
+    
+    top_3 = top_n(freq, 3)
+    print("Топ-3:", top_3)
