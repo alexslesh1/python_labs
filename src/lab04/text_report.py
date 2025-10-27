@@ -6,11 +6,19 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from lab04.io_txt_csv import read_text, write_csv
 from lib.text import normalize, tokenize, count_freq, top_n
 
+def validate_output_file(filename):
+    path = Path(filename)
+    if path.suffix.lower() != '.csv':
+        raise ValueError()
+
 def main():
     input_file = "src/data/lab04/input.txt"  
-    output_file = "src/data/lab04/report.csv"  
+    output_file = "src/data/lab04/report.json"  
     
     try:
+        # Проверка типа выходного файла
+        validate_output_file(output_file)
+        
         text = read_text(input_file)
         freq = count_freq(tokenize(normalize(text)))
         write_csv(sorted(freq.items(), key=lambda x: (-x[1], x[0])), 
@@ -23,6 +31,9 @@ def main():
         
     except FileNotFoundError:
         print(f"✗ Файл {input_file} не найден")
+        sys.exit(1)
+    except ValueError as e:
+        print(f"✗ Ошибка валидации: {e}")
         sys.exit(1)
     except Exception as e:
         print(f"✗ Ошибка: {e}")
