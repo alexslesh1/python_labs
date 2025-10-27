@@ -222,7 +222,7 @@ if __name__ == "__main__":
 
 **Полученный файл**
 
-![](misc/img/lab05/people_csv_1.png){.small-img}
+![](misc/img/lab05/people_csv_1.png)
 
 
 При вводе в консоль "2" Преобразование CSV ↔ JSON
