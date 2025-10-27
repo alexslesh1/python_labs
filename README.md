@@ -208,11 +208,6 @@ if __name__ == "__main__":
     main()
 ```
 
-<style>
-.small-img { width: 200px; height: auto; }
-.medium-img { width: 400px; height: auto; }
-</style>
-
 **Пример использования:**
 
 При вводе в консоль "1" Преобразование JSON ↔ CSV
