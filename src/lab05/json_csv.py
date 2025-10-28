@@ -1,41 +1,49 @@
+from pathlib import Path
 import json
 import csv
+import sys
 import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '../lib'))
+from io_helpers import read_file, write_file, get_file_extension
 
-def validate_extension(path, ext):
-    if not path.lower().endswith(ext.lower()):
-        raise ValueError(f"Неверный формат: {path}. Ожидается {ext}")
+def validate_extension(path: str, expected_ext: str) -> None:
 
-def json_to_csv(json_path, csv_path):
+    actual_ext = get_file_extension(path)
+    if actual_ext != expected_ext.lower():
+        raise ValueError(f"Неверный формат: {path}. Ожидается {expected_ext}")
+
+def json_to_csv(json_path: str, csv_path: str) -> None:
+
     validate_extension(json_path, '.json')
     validate_extension(csv_path, '.csv')
-    if not os.path.exists(json_path): raise FileNotFoundError(f"JSON не найден: {json_path}")
+    json_content = read_file(json_path)
+    data = json.loads(json_content)
     
-    with open(json_path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
-        if not data: raise ValueError("JSON файл пуст")
+    if not data:
+        raise ValueError("JSON файл пуст")
     
-    os.makedirs(os.path.dirname(csv_path), exist_ok=True)
-    
-    with open(csv_path, 'w', newline='', encoding='utf-8') as f:
-        writer = csv.DictWriter(f, fieldnames=list(data[0].keys()))
-        writer.writeheader()
-        writer.writerows(data)
-    
+    fieldnames = list(data[0].keys())
+    csv_content = []   
+    csv_content.append(','.join(fieldnames))
+
+    for item in data:
+        row = [str(item.get(field, '')) for field in fieldnames]
+        csv_content.append(','.join(row))
+    write_file(csv_path, '\n'.join(csv_content))
     print(f"JSON -> CSV завершено: {csv_path}")
 
-def csv_to_json(csv_path, json_path):
+
+def csv_to_json(csv_path: str, json_path: str) -> None:
     validate_extension(csv_path, '.csv')
     validate_extension(json_path, '.json')
-    if not os.path.exists(csv_path): raise FileNotFoundError(f"CSV не найден: {csv_path}")
+    csv_content = read_file(csv_path)
+    from io import StringIO
+    csv_file = StringIO(csv_content)
+    data = list(csv.DictReader(csv_file))
     
-    with open(csv_path, 'r', encoding='utf-8') as f:
-        data = list(csv.DictReader(f))
-        if not data: raise ValueError("CSV файл пуст")
-    
-    os.makedirs(os.path.dirname(json_path), exist_ok=True)
-    
-    with open(json_path, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
+    if not data:
+        raise ValueError("CSV файл пуст")
+    json_content = json.dumps(data, indent=2, ensure_ascii=False)
+    write_file(json_path, json_content)
     
     print(f"CSV -> JSON завершено: {json_path}")

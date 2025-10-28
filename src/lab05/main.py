@@ -10,7 +10,7 @@ def validate_conversion(input_path, output_path):
     output_ext = os.path.splitext(output_path)[1].lower()
     
     if input_ext == output_ext:
-        raise ValueError(f"❌ Нельзя конвертировать {input_ext} в {output_ext} - одинаковые форматы!")
+        raise ValueError(f"❌ Нельзя конвертировать {input_ext} в {output_ext} - одинаковые форматы!(хватит ломать код)")
 def main():
     print("Конвертер файлов :)")
     print("1. JSON → CSV")
