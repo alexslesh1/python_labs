@@ -43,7 +43,7 @@ def validate_extension(path, ext):
 **Описание:** Преобразует JSON-файл в CSV-формат. Читает JSON-данные и записывает их в CSV-файл с сохранением структуры.
 
 **Исходный код функции:**
-```
+``` python
 def json_to_csv(json_path, csv_path):
     validate_extension(json_path, '.json')
     validate_extension(csv_path, '.csv')
@@ -208,11 +208,6 @@ if __name__ == "__main__":
     main()
 ```
 
-<style>
-.small-img { width: 200px; height: auto; }
-.medium-img { width: 400px; height: auto; }
-</style>
-
 **Пример использования:**
 
 При вводе в консоль "1" Преобразование JSON ↔ CSV
@@ -222,7 +217,7 @@ if __name__ == "__main__":
 
 **Полученный файл**
 
-![](misc/img/lab05/people_csv_1.png){.small-img}
+![](misc/img/lab05/people_csv_1.png)
 
 
 При вводе в консоль "2" Преобразование CSV ↔ JSON
