@@ -80,6 +80,7 @@ python3 -m src.lab06.cli_convert json2csv --in data/samples/people.json --out da
 ![img](data/lab06/json2csv.png)
 
 **Выходной Файл**
+
 ![img](data/lab06/csv.png)
 
 **Команда: csv2json**
